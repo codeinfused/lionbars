@@ -38,6 +38,24 @@
 		}
 		this.mainLoop();
         
+        this.ResetVBar = function(){
+			elements.each(function(){
+				var that = $(this);
+				
+				// remove manual display styles from parent and update lb-wrap
+				that.attr("style", "").find(".lb-wrap").height(that.height());
+				
+				// update everything else? some of this may not be necessary?
+				getDimentions(this, false, true);
+				hideScrollbars(this, addVScroll, addHScroll);
+				reduceScrollbarsWidthHeight(this);
+				setSlidersHeight(this);
+				setScrollRatios(this);
+				setEvents(this);
+				resetVars();
+			});
+		};
+        
         this.Update = function() {
 			for(var i=0; elements[i] !== undefined; i++) {
 				if (needScrollbars(elements[i]) && !$(elements[i]).hasClass('nolionbars')) {
